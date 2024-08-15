@@ -12,9 +12,26 @@ export async function GET() {
         console.log(data);
 
         // Use NextResponse.json to return a JSON response
-        return NextResponse.json({ result: true });
+        return NextResponse.json({ result: data });
     } catch (error) {
         console.error(error);
         return NextResponse.json({ result: false, error: error.message });
+    }
+}
+
+export async function POST(request) {
+    try {
+        await mongoose.connect(connectionStr);
+        
+        const payload = await request.json();
+        const data = new resturantSchema(payload);
+        const result = await data.save();
+        console.log(result);
+        
+        return NextResponse.json({result: result, success: true})
+    } catch (error) {
+        console.error(error);
+        return NextResponse.json({success: false, error: error.message})
+        
     }
 }

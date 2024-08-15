@@ -1,3 +1,4 @@
+'use client'
 import React, { useState } from 'react';
 
 const SignUp = () => {
@@ -12,8 +13,26 @@ const SignUp = () => {
     confirm_password: ''
   })
 
-  const handleSignup = () => {
-    console.log(userSignup.name, userSignup.city);
+  const handleSignup = async () => {
+    const data = await fetch("http://localhost:3000/api/resturant",{
+      method: 'POST',
+      body: JSON.stringify({
+        name: userSignup.name,
+        city: userSignup.city,
+        address: userSignup.address,
+        contact_no: userSignup.contact_no,
+        email: userSignup.email,
+        password: userSignup.password
+      })
+    });
+    const response = await data.json();
+    if(response){
+      alert("Signup Successfull");
+    }
+    else{
+      alert("Signup UnSuccessfull");
+    }
+    console.log(response);
   }
 
   return (
