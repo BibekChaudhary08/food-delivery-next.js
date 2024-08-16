@@ -19,6 +19,8 @@ export async function GET() {
     }
 }
 
+// This POST method is used to store the SignUp values in the database Collection.
+
 export async function POST(request) {
     try {
         await mongoose.connect(connectionStr);

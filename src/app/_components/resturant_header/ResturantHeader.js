@@ -1,8 +1,24 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/navigation'
+import React, { useEffect, useState } from 'react'
 
 const RestaurantHeader = () => {
+
+  const [userdata, setUserData] = useState();
+  const router = useRouter();
+
+  useEffect(() => {
+    const localdata = localStorage.getItem("userDetail");
+    setUserData(localdata);
+  }, [])
+
+  const handleLogout = () => {
+    localStorage.removeItem("userDetail");
+    router.push('/signup')
+  }
+  
   return (
     <header className="bg-gray-800 text-white py-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -12,8 +28,18 @@ const RestaurantHeader = () => {
         </div>
         <nav className="space-x-6">
           <Link href="/" className="hover:underline">Home</Link>
-          <Link href="/" className="hover:underline">Login/Signup</Link>
+          {userdata?
+          <>
           <Link href="/" className="hover:underline">Profile</Link>
+          <Link href="/" className="hover:underline">
+             <button onClick={handleLogout}>Logout</button>
+          </Link>
+          </>
+          :
+          <>
+          <Link href="/" className="hover:underline">Login/Signup</Link>
+          </>}
+          <Link href="/" className="hover:underline">Contact Us</Link>
         </nav>
       </div>
     </header>
