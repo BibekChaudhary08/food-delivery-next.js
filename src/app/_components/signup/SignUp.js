@@ -16,7 +16,33 @@ const SignUp = () => {
 
   const router = useRouter();
 
+  const validateEmail = (email) => {
+    // Regular expression for a simple email validation
+    const emailRegex = /^[^\s@]+@gmail\.com$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidate = validateEmail(userSignup.email);
+
   const handleSignup = async () => {
+
+    if(userSignup.name == '' || userSignup.city == '' || userSignup.address == '' || userSignup.email == '' || userSignup.contact_no == '' || userSignup.password == '' || userSignup.confirm_password == ''){
+      alert("Required all the Fields");
+      router.push('/resturant');
+      return false;
+    }
+
+    else if(!isValidate){
+      alert('Please enter valid email address');
+      return false;
+    }
+  
+    else if(userSignup.password !== userSignup.confirm_password){
+      alert("Passwords not matching");
+      router.push('/resturant');
+      return false;
+    }
+
     const data = await fetch("http://localhost:3000/api/resturant",{
       method: 'POST',
       body: JSON.stringify({
@@ -29,10 +55,8 @@ const SignUp = () => {
       })
     });
     const response = await data.json();
-    if(userSignup.name == '' || userSignup.city == '' || userSignup.address == '' || userSignup.email == '' || userSignup.contact_no == '' || userSignup.password == '' || userSignup.confirm_password == ''){
-      alert("Required all the Fields")
-    }
-    else if(response.success){
+
+    if(response.success){
       alert("Signup Successfull");
       setUserSignup({
         name: '',

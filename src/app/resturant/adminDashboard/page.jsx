@@ -11,7 +11,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const localdata = localStorage.getItem("userDetail");
     if(!localdata){
-       router.push("/signup");
+       router.push("/resturant");
     }
     else{
       router.push("/resturant/adminDashboard");
