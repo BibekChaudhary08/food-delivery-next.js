@@ -16,7 +16,7 @@ const RestaurantHeader = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("userDetail");
-    router.push('/signup')
+    router.push('/resturant')
   }
   
   return (

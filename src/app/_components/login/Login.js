@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 
 const Login = () => {
 
-  const[userSignup, setUserSignup] = useState({
+  const[userLogin, setUserLogin] = useState({
     email: '',
     password: '',
   })
@@ -17,11 +17,11 @@ const Login = () => {
     return emailRegex.test(email);
   };
 
-  const isValidate = validateEmail(userSignup.email);
+  const isValidate = validateEmail(userLogin.email);
 
   const handleLogin = async () => {
 
-    if(userSignup.email == '' || userSignup.password == ''){
+    if(userLogin.email == '' || userLogin.password == ''){
       alert("Required all the Fields");
       router.push('/resturant');
       return false;
@@ -33,8 +33,26 @@ const Login = () => {
     }
 
     else{
-      console.log("login Successfull");
-      
+      const data = await fetch("http://localhost:3000/api/resturant",{
+        method: 'POST',
+        body: JSON.stringify({
+          email: userLogin.email,
+          password: userLogin.password,
+          login: true
+        })
+      });
+      const response = await data.json();
+      console.log(response);
+      if(response.success){
+        alert('Login Successfull');
+        const {result} = response;
+        delete result.password;
+        localStorage.setItem('userDetail', JSON.stringify(result));
+        router.push('/resturant/adminDashboard');
+      }
+      else{
+        alert('Invalid Email or Password')
+      }
     }
 
   }
@@ -47,9 +65,9 @@ const Login = () => {
           <div>
             <input 
               type="email"
-              value={userSignup.email} 
-              onChange={(e) => setUserSignup({
-                ...userSignup,
+              value={userLogin.email} 
+              onChange={(e) => setUserLogin({
+                ...userLogin,
                 email: e.target.value
               })}
               placeholder="Enter your Email" 
@@ -59,9 +77,9 @@ const Login = () => {
           <div>
             <input 
               type="password" 
-              value={userSignup.password}
-              onChange={(e) => setUserSignup({
-                ...userSignup,
+              value={userLogin.password}
+              onChange={(e) => setUserLogin({
+                ...userLogin,
                 password: e.target.value
               })}
               placeholder="Enter your Password" 

@@ -57,7 +57,7 @@ const SignUp = () => {
     const response = await data.json();
 
     if(response.success){
-      alert("Signup Successfull");
+      alert("Signup Successfull. Go to Login");
       setUserSignup({
         name: '',
         city: '',
@@ -70,7 +70,7 @@ const SignUp = () => {
       const { result } = response;
       delete result.password;
       localStorage.setItem('userDetail', JSON.stringify(result));
-      router.push('/resturant/adminDashboard');
+      router.push('/resturant');
     }
     else{
       alert("Signup UnSuccessfull");
