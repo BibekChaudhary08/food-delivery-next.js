@@ -17,11 +17,25 @@ const AdminDashboard = () => {
       router.push("/resturant/adminDashboard");
     }
   }, [])
+
+  const handleAddItems = () => {
+    router.push("/resturant/addnewfood")
+  }
   
   return (
     <div>
       <RestaurantHeader />
-      <h1>Admin Dashboard</h1>
+      <div>
+        <h1>Admin Dashboard</h1>
+        <div>
+          <h1>Food Items List</h1>
+          <button onClick={handleAddItems} className='bg-red-600'>
+             Add new Food Items
+          </button>
+        </div>
+      </div>
+
+
       <RestaurantFooter />
     </div>
   )
