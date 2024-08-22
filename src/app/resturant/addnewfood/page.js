@@ -10,8 +10,42 @@ const AddNewFood = () => {
         description: ''
     })
 
-    const addNewFood = () => {
-        console.log(addFoodItem);
+    const addNewFood = async () => {
+      if(addFoodItem.name == '' || addFoodItem.price == '' || addFoodItem.image == '' || addFoodItem.description == ''){
+        alert('Required all Fields');
+        return false;
+     }
+     
+      const localData = JSON.parse(localStorage.getItem('userDetail'));
+      if(localData){
+        const data = await fetch('http://localhost:3000/api/resturant/food_items',{
+          method: 'POST',
+          body: JSON.stringify({
+                name: addFoodItem.name,
+                price: addFoodItem.price, 
+                image: addFoodItem.image, 
+                description: addFoodItem.description,
+                resto_id: localData._id
+              })
+        })
+        const response = await data.json();
+        if(response.success){
+          alert('Food item Added Successfully');
+          setAddFoodItem({
+            name: '',
+            price: '',
+            image: '',
+            description: ''
+          })
+        }
+        else{
+          alert('Failed to add food item')
+        }
+      }
+      else{
+        alert('Please login first');
+      }
+    
     }
 
   return (
