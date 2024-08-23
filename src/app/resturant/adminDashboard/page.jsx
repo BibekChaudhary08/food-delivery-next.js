@@ -1,4 +1,5 @@
 "use client"
+import FoodItemsList from '@/app/_components/food_item_list/FoodItemsList'
 import RestaurantFooter from '@/app/_components/resturant_footer/ResturantFooter'
 import RestaurantHeader from '@/app/_components/resturant_header/ResturantHeader'
 import { useRouter } from 'next/navigation'
@@ -28,10 +29,10 @@ const AdminDashboard = () => {
       <div>
         <h1>Admin Dashboard</h1>
         <div>
-          <h1>Food Items List</h1>
           <button onClick={handleAddItems} className='bg-red-600'>
              Add new Food Items
           </button>
+          <FoodItemsList />   
         </div>
       </div>
 
