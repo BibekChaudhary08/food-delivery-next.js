@@ -13,3 +13,14 @@ export async function GET(request, {params}){
    }
    return NextResponse.json({data, success})
 }
+
+export async function DELETE(request, {params}){
+   const {resturant_id} = params;
+   await mongoose.connect(connectionStr);
+   let success = false;
+   const data = await FoodSchema.deleteOne({_id : resturant_id});
+   if(data){
+      success = true;
+   }
+   return NextResponse.json({data, success});
+}
