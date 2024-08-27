@@ -54,7 +54,6 @@ const Login = () => {
         alert('Invalid Email or Password')
       }
     }
-
   }
 
   return (

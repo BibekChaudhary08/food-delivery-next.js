@@ -1,7 +1,10 @@
 'use client'
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 
 const AddNewFood = () => {
+
+  const router = useRouter();
 
     const [addFoodItem, setAddFoodItem] = useState({
         name: '',
@@ -37,6 +40,7 @@ const AddNewFood = () => {
             image: '',
             description: ''
           })
+          router.push('/resturant/adminDashboard');
         }
         else{
           alert('Failed to add food item')
